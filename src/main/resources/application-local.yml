@@ -1,0 +1,3 @@
+intellidoc:
+  api:
+    base-url: ${INTELLIDOC_API_URL:http://localhost:8080}

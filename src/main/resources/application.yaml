@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: intellidoc-web
+
+  thymeleaf:
+    cache: false
+
+server:
+  port: 8081
+
+  azure:
+    storage:
+      account-name: ${AZURE_STORAGE_ACCOUNT_NAME}
+      container-name: intellidoc-documents
+
+    openai:
+      endpoint: ${AZURE_OPENAI_ENDPOINT}
+      deployment: ${AZURE_OPENAI_DEPLOYMENT}
+
+intellidoc:
+  api:
+    base-url: http://localhost:8080

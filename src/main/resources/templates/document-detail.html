@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Documento | IntelliDoc</title>
+
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+            rel="stylesheet">
+
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <link
+            rel="stylesheet"
+            th:href="@{/css/app.css}">
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg intellidoc-navbar">
+
+    <div class="container">
+
+        <a class="navbar-brand d-flex align-items-center gap-2"
+           th:href="@{/}">
+
+            <span class="brand-icon">
+                <i class="bi bi-file-earmark-text"></i>
+            </span>
+
+            <span class="brand-name">
+                IntelliDoc
+            </span>
+
+        </a>
+
+        <div class="d-flex gap-3">
+
+            <a class="nav-link"
+               th:href="@{/documents}">
+
+                <i class="bi bi-arrow-left me-1"></i>
+
+                Mis documentos
+
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<main>
+
+    <section class="hero-section">
+
+        <div class="container">
+
+            <div class="mb-4">
+
+                <span class="hero-badge">
+
+                    <i class="bi bi-file-earmark-text"></i>
+
+                    Detalle del documento
+
+                </span>
+
+                <h1 class="hero-title mt-3">
+
+                    <span th:text="${document.originalFilename}">
+                        Documento
+                    </span>
+
+                </h1>
+
+            </div>
+
+
+            <!-- METADATA -->
+
+            <div class="result-card mb-4">
+
+                <div class="result-card-header">
+
+                    <div class="result-card-icon">
+
+                        <i class="bi bi-info-circle"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h4 class="mb-1">
+                            Información del documento
+                        </h4>
+
+                        <p class="text-muted mb-0">
+                            Metadata registrada por IntelliDoc.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="row g-4">
+
+                    <div class="col-md-6">
+
+                        <small class="text-muted">
+                            Nombre
+                        </small>
+
+                        <div class="field-name"
+                             th:text="${document.originalFilename}">
+                            documento.txt
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <small class="text-muted">
+                            Tipo de contenido
+                        </small>
+
+                        <div class="field-name"
+                             th:text="${document.contentType}">
+                            text/plain
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <small class="text-muted">
+                            Tamaño
+                        </small>
+
+                        <div
+                                th:text="${document.sizeInBytes + ' bytes'}">
+                            315 bytes
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <small class="text-muted">
+                            Estado
+                        </small>
+
+                        <div class="mt-1">
+
+                            <span class="status-badge status-success"
+                                  th:text="${document.status}">
+                                PROCESSED
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RESULT -->
+
+            <div
+                    class="result-card mb-4"
+                    th:if="${result != null}">
+
+                <div class="result-card-header">
+
+                    <div class="result-card-icon">
+
+                        <i class="bi bi-stars"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h4 class="mb-1">
+                            Resultado del análisis
+                        </h4>
+
+                        <p class="text-muted mb-0">
+                            Información procesada mediante inteligencia artificial.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="document-type-value mb-4"
+                     th:text="${result.analysis.documentType}">
+                    INVOICE
+                </div>
+
+
+                <div class="table-responsive">
+
+                    <table class="table result-table">
+
+                        <thead>
+
+                        <tr>
+                            <th>Campo</th>
+                            <th>Valor</th>
+                            <th>Confianza</th>
+                        </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                        <tr th:each="field : ${result.analysis.requestedFields}">
+
+                            <td
+                                    class="field-name"
+                                    th:text="${field.key}">
+                                total
+                            </td>
+
+                            <td
+                                    th:text="${field.value.value != null ? field.value.value : 'No encontrado'}">
+                                1785000
+                            </td>
+
+                            <td
+                                    th:text="${field.value.confidence != null ? (field.value.confidence * 100) + '%' : 'N/A'}">
+                                98%
+                            </td>
+
+                        </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <!-- NO RESULT -->
+
+            <div
+                    class="result-card mb-4"
+                    th:if="${result == null}">
+
+                <div class="empty-state">
+
+                    <i class="bi bi-hourglass-split"></i>
+
+                    <div class="mt-2">
+                        Este documento todavía no tiene un resultado de procesamiento.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ACTIONS -->
+
+            <div class="result-actions">
+
+                <a
+                        th:href="@{/documents/{id}/history(id=${document.id})}"
+                        class="btn btn-outline-primary">
+
+                    <i class="bi bi-clock-history me-2"></i>
+
+                    Ver historial
+
+                </a>
+
+
+                <a
+                        th:if="${result != null}"
+                        th:href="@{/documents/{id}/result/download(id=${document.id})}"
+                        class="btn btn-intellidoc">
+
+                    <i class="bi bi-download me-2"></i>
+
+                    Descargar JSON
+
+                </a>
+
+
+                <a
+                        th:href="@{/documents/upload}"
+                        class="btn btn-outline-secondary">
+
+                    <i class="bi bi-plus-lg me-2"></i>
+
+                    Procesar otro documento
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="intellidoc-footer">
+
+    <div class="container text-center">
+
+        IntelliDoc · Procesamiento inteligente de documentos
+
+    </div>
+
+</footer>
+
+</body>
+
+</html>

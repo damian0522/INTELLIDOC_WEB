@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | IntelliDoc</title>
+
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+            rel="stylesheet">
+
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <link
+            rel="stylesheet"
+            th:href="@{/css/app.css}">
+
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+     ===================================================== -->
+
+<nav class="navbar navbar-expand-lg intellidoc-navbar">
+
+    <div class="container">
+
+        <a class="navbar-brand d-flex align-items-center gap-2"
+           th:href="@{/}">
+
+            <span class="brand-icon">
+
+                <i class="bi bi-file-earmark-text"></i>
+
+            </span>
+
+            <span class="brand-name">
+
+                IntelliDoc
+
+            </span>
+
+        </a>
+
+
+        <div class="d-flex align-items-center gap-3">
+
+            <a class="nav-link"
+               th:href="@{/}">
+
+                <i class="bi bi-grid me-1"></i>
+
+                Dashboard
+
+            </a>
+
+
+            <a class="nav-link"
+               th:href="@{/documents/upload}">
+
+                <i class="bi bi-cloud-arrow-up me-1"></i>
+
+                Procesar documento
+
+            </a>
+
+
+            <a class="btn btn-outline-primary"
+               th:href="@{/documents}">
+
+                <i class="bi bi-folder2-open me-1"></i>
+
+                Mis documentos
+
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =====================================================
+     DASHBOARD
+     ===================================================== -->
+
+<main>
+
+    <section class="dashboard-section">
+
+        <div class="container">
+
+
+            <!-- HEADER -->
+
+            <div class="dashboard-header">
+
+                <div>
+
+                    <span class="hero-badge">
+
+                        <i class="bi bi-grid"></i>
+
+                        Dashboard
+
+                    </span>
+
+
+                    <h1 class="dashboard-title">
+
+                        Procesamiento
+                        <span>inteligente</span>
+
+                    </h1>
+
+
+                    <p class="dashboard-description">
+
+                        Consulta el estado de tus documentos y accede
+                        rápidamente a las principales funcionalidades
+                        de IntelliDoc.
+
+                    </p>
+
+                </div>
+
+
+                <div class="dashboard-actions">
+
+                    <a
+                            th:href="@{/documents/upload}"
+                            class="btn btn-intellidoc">
+
+                        <i class="bi bi-cloud-arrow-up me-2"></i>
+
+                        Procesar documento
+
+                    </a>
+
+
+                    <a
+                            th:href="@{/documents}"
+                            class="btn btn-outline-secondary">
+
+                        <i class="bi bi-folder2-open me-2"></i>
+
+                        Mis documentos
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 STATISTICS
+                 ================================================= -->
+
+            <div class="row g-4 mb-5">
+
+
+                <!-- TOTAL -->
+
+                <div class="col-md-4">
+
+                    <div class="dashboard-stat-card">
+
+                        <div class="stat-icon stat-icon-primary">
+
+                            <i class="bi bi-files"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <div class="stat-value"
+                                 th:text="${totalDocuments}">
+
+                                0
+
+                            </div>
+
+
+                            <div class="stat-label">
+
+                                Documentos
+
+                            </div>
+
+
+                            <div class="stat-description">
+
+                                Registrados en IntelliDoc
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PROCESSED -->
+
+                <div class="col-md-4">
+
+                    <div class="dashboard-stat-card">
+
+                        <div class="stat-icon stat-icon-success">
+
+                            <i class="bi bi-check-circle"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <div class="stat-value"
+                                 th:text="${processedDocuments}">
+
+                                0
+
+                            </div>
+
+
+                            <div class="stat-label">
+
+                                Procesados
+
+                            </div>
+
+
+                            <div class="stat-description">
+
+                                Análisis completados
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PENDING -->
+
+                <div class="col-md-4">
+
+                    <div class="dashboard-stat-card">
+
+                        <div class="stat-icon stat-icon-warning">
+
+                            <i class="bi bi-hourglass-split"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <div class="stat-value"
+                                 th:text="${pendingDocuments}">
+
+                                0
+
+                            </div>
+
+
+                            <div class="stat-label">
+
+                                Pendientes
+
+                            </div>
+
+
+                            <div class="stat-description">
+
+                                En proceso o por procesar
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 RECENT ACTIVITY
+                 ================================================= -->
+
+            <div class="dashboard-card">
+
+                <div class="dashboard-card-header">
+
+                    <div>
+
+                        <h3>
+
+                            Actividad reciente
+
+                        </h3>
+
+                        <p>
+
+                            Últimos documentos registrados en IntelliDoc.
+
+                        </p>
+
+                    </div>
+
+
+                    <a
+                            th:href="@{/documents}"
+                            class="dashboard-link">
+
+                        Ver todos
+
+                        <i class="bi bi-arrow-right ms-1"></i>
+
+                    </a>
+
+                </div>
+
+
+
+                <!-- EMPTY -->
+
+                <div
+                        th:if="${recentDocuments == null or recentDocuments.isEmpty()}"
+                        class="empty-state">
+
+                    <i class="bi bi-file-earmark-x"></i>
+
+                    <div class="mt-2">
+
+                        No hay actividad reciente.
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ACTIVITY TABLE -->
+
+                <div
+                        th:if="${recentDocuments != null and !recentDocuments.isEmpty()}"
+                        class="table-responsive">
+
+                    <table class="table dashboard-table align-middle">
+
+                        <thead>
+
+                        <tr>
+
+                            <th>
+
+                                Documento
+
+                            </th>
+
+                            <th>
+
+                                Tipo
+
+                            </th>
+
+                            <th>
+
+                                Estado
+
+                            </th>
+
+                            <th class="text-end">
+
+                                Acción
+
+                            </th>
+
+                        </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                        <tr
+                                th:each="document : ${recentDocuments}">
+
+
+                            <!-- DOCUMENT -->
+
+                            <td>
+
+                                <div class="d-flex align-items-center gap-3">
+
+                                    <div class="activity-icon">
+
+                                        <i class="bi bi-file-earmark-text"></i>
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <div
+                                                class="activity-name"
+                                                th:text="${document.originalFilename}">
+
+                                            Documento_factura_prueba.txt
+
+                                        </div>
+
+
+                                        <small
+                                                class="text-muted"
+                                                th:text="${document.sizeInBytes + ' bytes'}">
+
+                                            315 bytes
+
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+
+
+                            <!-- TYPE -->
+
+                            <td>
+
+                                <span
+                                        th:text="${document.contentType}">
+
+                                    text/plain
+
+                                </span>
+
+                            </td>
+
+
+
+                            <!-- STATUS -->
+
+                            <td>
+
+                                <span
+                                        class="status-badge"
+                                        th:classappend="${document.status == 'PROCESSED'}
+                                            ? ' status-success'
+                                            : (${document.status == 'FAILED'}
+                                                ? ' status-danger'
+                                                : ' status-warning')"
+                                        th:text="${document.status}">
+
+                                    PROCESSED
+
+                                </span>
+
+                            </td>
+
+
+
+                            <!-- ACTION -->
+
+                            <td class="text-end">
+
+                                <a
+                                        th:href="@{/documents/{id}(id=${document.id})}"
+                                        class="btn btn-sm btn-outline-primary">
+
+                                    <i class="bi bi-eye me-1"></i>
+
+                                    Ver
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 QUICK ACCESS
+                 ================================================= -->
+
+            <div class="row g-4 mt-4">
+
+
+                <div class="col-md-4">
+
+                    <a
+                            th:href="@{/documents/upload}"
+                            class="dashboard-feature-link">
+
+                        <div class="dashboard-feature-icon">
+
+                            <i class="bi bi-cloud-arrow-up"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h5>
+
+                                Procesar documento
+
+                            </h5>
+
+                            <p>
+
+                                Carga un nuevo documento para
+                                iniciar su análisis.
+
+                            </p>
+
+                        </div>
+
+                        <i class="bi bi-arrow-right feature-arrow"></i>
+
+                    </a>
+
+                </div>
+
+
+
+                <div class="col-md-4">
+
+                    <a
+                            th:href="@{/documents}"
+                            class="dashboard-feature-link">
+
+                        <div class="dashboard-feature-icon">
+
+                            <i class="bi bi-folder2-open"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h5>
+
+                                Mis documentos
+
+                            </h5>
+
+                            <p>
+
+                                Consulta documentos y resultados
+                                almacenados.
+
+                            </p>
+
+                        </div>
+
+                        <i class="bi bi-arrow-right feature-arrow"></i>
+
+                    </a>
+
+                </div>
+
+
+
+                <div class="col-md-4">
+
+                    <a
+                            th:href="@{/documents}"
+                            class="dashboard-feature-link">
+
+                        <div class="dashboard-feature-icon">
+
+                            <i class="bi bi-clock-history"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h5>
+
+                                Trazabilidad
+
+                            </h5>
+
+                            <p>
+
+                                Accede al historial de procesamiento
+                                de cada documento.
+
+                            </p>
+
+                        </div>
+
+                        <i class="bi bi-arrow-right feature-arrow"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+     ===================================================== -->
+
+<footer class="intellidoc-footer">
+
+    <div class="container text-center">
+
+        IntelliDoc · Procesamiento inteligente de documentos
+
+    </div>
+
+</footer>
+
+
+</body>
+
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title th:text="${pageTitle != null ? pageTitle + ' | IntelliDoc' : 'IntelliDoc'}">
+        IntelliDoc
+    </title>
+
+    <!-- Bootstrap -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+            rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <!-- IntelliDoc -->
+    <link
+            rel="stylesheet"
+            th:href="@{/css/app.css}">
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg intellidoc-navbar">
+
+    <div class="container">
+
+        <a class="navbar-brand d-flex align-items-center gap-2"
+           th:href="@{/}">
+
+            <span class="brand-icon">
+                <i class="bi bi-file-earmark-text"></i>
+            </span>
+
+            <span class="brand-name">
+                IntelliDoc
+            </span>
+
+        </a>
+
+        <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mainNavbar">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <div
+                class="collapse navbar-collapse"
+                id="mainNavbar">
+
+            <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       th:href="@{/}">
+
+                        <i class="bi bi-grid me-1"></i>
+                        Dashboard
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       th:href="@{/documents/upload}">
+
+                        <i class="bi bi-cloud-arrow-up me-1"></i>
+                        Procesar documento
+
+                    </a>
+
+                </li>
+
+                <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           th:href="@{/}">
+                            <i class="bi bi-grid me-1"></i>
+                            Dashboard
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           th:href="@{/documents/upload}">
+                            <i class="bi bi-cloud-arrow-up me-1"></i>
+                            Procesar documento
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           th:href="@{/documents}">
+                            <i class="bi bi-folder2-open me-1"></i>
+                            Mis documentos
+                        </a>
+                    </li>
+
+                </ul>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<main th:fragment="content">
+
+    <!-- Contenido de la página -->
+
+</main>
+
+
+<footer class="intellidoc-footer">
+
+    <div class="container text-center">
+
+        IntelliDoc · Procesamiento inteligente de documentos
+
+    </div>
+
+</footer>
+
+
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">
+</script>
+
+</body>
+
+</html>

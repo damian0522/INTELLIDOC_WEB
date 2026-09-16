@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Historial | IntelliDoc</title>
+
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+            rel="stylesheet">
+
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <link
+            rel="stylesheet"
+            th:href="@{/css/app.css}">
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg intellidoc-navbar">
+
+    <div class="container">
+
+        <a class="navbar-brand d-flex align-items-center gap-2"
+           th:href="@{/}">
+
+            <span class="brand-icon">
+                <i class="bi bi-file-earmark-text"></i>
+            </span>
+
+            <span class="brand-name">
+                IntelliDoc
+            </span>
+
+        </a>
+
+        <a
+                class="nav-link"
+                th:href="@{/documents/{id}(id=${document.id})}">
+
+            <i class="bi bi-arrow-left me-1"></i>
+
+            Volver al documento
+
+        </a>
+
+    </div>
+
+</nav>
+
+
+<main>
+
+    <section class="hero-section">
+
+        <div class="container">
+
+            <div class="text-center mb-5">
+
+                <span class="hero-badge">
+
+                    <i class="bi bi-clock-history"></i>
+
+                    Trazabilidad
+
+                </span>
+
+                <h1 class="hero-title mt-3">
+
+                    Historial del <span>documento</span>
+
+                </h1>
+
+                <p class="hero-description">
+
+                    Consulta las acciones realizadas sobre el documento
+                    durante su procesamiento.
+
+                </p>
+
+            </div>
+
+
+            <div class="result-card">
+
+                <div class="result-card-header">
+
+                    <div class="result-card-icon">
+
+                        <i class="bi bi-file-earmark-text"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h4 class="mb-1"
+                            th:text="${document.originalFilename}">
+                            Documento
+                        </h4>
+
+                        <p class="text-muted mb-0"
+                           th:text="${document.status}">
+                            PROCESSED
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                        th:if="${history == null or history.isEmpty()}"
+                        class="empty-state">
+
+                    <i class="bi bi-clock-history"></i>
+
+                    <div class="mt-2">
+                        No existen registros de historial para este documento.
+                    </div>
+
+                </div>
+
+
+                <div
+                        th:if="${history != null and !history.isEmpty()}"
+                        class="timeline">
+
+                    <div
+                            class="timeline-item"
+                            th:each="entry : ${history}">
+
+                        <div class="timeline-marker">
+
+                            <i class="bi bi-check2"></i>
+
+                        </div>
+
+                        <div class="timeline-content">
+
+                            <div class="d-flex justify-content-between
+                                        align-items-center gap-3">
+
+                                <strong
+                                        th:text="${entry.action}">
+                                    DOCUMENT_PROCESSED
+                                </strong>
+
+                                <small
+                                        class="text-muted"
+                                        th:text="${entry.date}">
+                                    2026-09-15
+                                </small>
+
+                            </div>
+
+                            <small
+                                    class="text-muted"
+                                    th:text="${'Usuario: ' + entry.ownerId}">
+                                Usuario
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="result-actions">
+
+                <a
+                        th:href="@{/documents/{id}(id=${document.id})}"
+                        class="btn btn-intellidoc">
+
+                    <i class="bi bi-file-earmark-text me-2"></i>
+
+                    Ver documento
+
+                </a>
+
+                <a
+                        th:href="@{/documents}"
+                        class="btn btn-outline-secondary">
+
+                    <i class="bi bi-folder2-open me-2"></i>
+
+                    Mis documentos
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="intellidoc-footer">
+
+    <div class="container text-center">
+
+        IntelliDoc · Procesamiento inteligente de documentos
+
+    </div>
+
+</footer>
+
+</body>
+
+</html>

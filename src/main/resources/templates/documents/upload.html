@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Procesar documento | IntelliDoc</title>
+
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+            rel="stylesheet">
+
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <link
+            rel="stylesheet"
+            th:href="@{/css/app.css}">
+
+</head>
+
+<body>
+
+<nav class="navbar intellidoc-navbar">
+
+    <div class="container">
+
+        <a class="navbar-brand d-flex align-items-center gap-2"
+           th:href="@{/}">
+
+            <span class="brand-icon">
+
+                <i class="bi bi-file-earmark-text"></i>
+
+            </span>
+
+            <span class="brand-name">
+                IntelliDoc
+            </span>
+
+        </a>
+
+        <a th:href="@{/}"
+           class="nav-link">
+
+            <i class="bi bi-arrow-left me-1"></i>
+
+            Volver al dashboard
+
+        </a>
+
+    </div>
+
+</nav>
+
+
+<main>
+
+    <section class="hero-section">
+
+        <div class="container">
+
+            <div class="text-center mb-5">
+
+                <span class="hero-badge">
+
+                    <i class="bi bi-file-earmark-arrow-up"></i>
+
+                    Nuevo procesamiento
+
+                </span>
+
+                <h1 class="hero-title">
+
+                    Procesa tu documento
+
+                </h1>
+
+                <p class="hero-description">
+
+                    Carga un documento y deja que IntelliDoc se encargue
+                    de validarlo, almacenarlo y analizarlo.
+
+                </p>
+
+            </div>
+
+
+            <div class="row justify-content-center">
+
+                <div class="col-lg-8">
+
+                    <div class="upload-card">
+
+                        <form
+                                method="post"
+                                th:action="@{/documents/process}"
+                                enctype="multipart/form-data">
+
+                            <div class="upload-zone">
+
+                                <div class="upload-icon">
+
+                                    <i class="bi bi-file-earmark-arrow-up"></i>
+
+                                </div>
+
+                                <h4 class="upload-title">
+
+                                    Selecciona tu documento
+
+                                </h4>
+
+                                <p class="upload-description">
+
+                                    Puedes cargar archivos PDF, DOCX o TXT.
+
+                                </p>
+
+                                <input
+                                        type="file"
+                                        class="form-control mt-4"
+                                        id="document"
+                                        name="file"
+                                        accept=".pdf,.docx,.txt"
+                                        required>
+
+                            </div>
+
+
+                            <div class="d-grid mt-4">
+
+                                <button
+                                        type="submit"
+                                        class="btn btn-intellidoc">
+
+                                    <i class="bi bi-stars me-2"></i>
+
+                                    Procesar documento
+
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="intellidoc-footer">
+
+    <div class="container text-center">
+
+        IntelliDoc · Procesamiento inteligente de documentos
+
+    </div>
+
+</footer>
+
+</body>
+
+</html>

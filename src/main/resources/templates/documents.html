@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Mis documentos | IntelliDoc</title>
+
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+            rel="stylesheet">
+
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <link
+            rel="stylesheet"
+            th:href="@{/css/app.css}">
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg intellidoc-navbar">
+
+    <div class="container">
+
+        <a class="navbar-brand d-flex align-items-center gap-2"
+           th:href="@{/}">
+
+            <span class="brand-icon">
+                <i class="bi bi-file-earmark-text"></i>
+            </span>
+
+            <span class="brand-name">
+                IntelliDoc
+            </span>
+
+        </a>
+
+        <div class="d-flex gap-3">
+
+            <a class="nav-link"
+               th:href="@{/}">
+
+                <i class="bi bi-grid me-1"></i>
+                Dashboard
+
+            </a>
+
+            <a class="nav-link"
+               th:href="@{/documents/upload}">
+
+                <i class="bi bi-cloud-arrow-up me-1"></i>
+                Procesar documento
+
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<main>
+
+    <section class="hero-section">
+
+        <div class="container">
+
+            <div class="text-center mb-5">
+
+                <span class="hero-badge">
+
+                    <i class="bi bi-folder2-open"></i>
+
+                    Gestión documental
+
+                </span>
+
+                <h1 class="hero-title mt-3">
+
+                    Mis <span>documentos</span>
+
+                </h1>
+
+                <p class="hero-description">
+
+                    Consulta los documentos procesados y accede a sus
+                    resultados e historial.
+
+                </p>
+
+            </div>
+
+
+            <div class="document-list-card">
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+
+                    <div>
+
+                        <h4 class="mb-1">
+                            Documentos
+                        </h4>
+
+                        <p class="text-muted mb-0">
+                            Documentos asociados al usuario actual.
+                        </p>
+
+                    </div>
+
+                    <a
+                            th:href="@{/documents/upload}"
+                            class="btn btn-intellidoc">
+
+                        <i class="bi bi-plus-lg me-2"></i>
+
+                        Nuevo documento
+
+                    </a>
+
+                </div>
+
+
+                <div
+                        th:if="${documents == null or documents.isEmpty()}"
+                        class="empty-state">
+
+                    <i class="bi bi-file-earmark-x"></i>
+
+                    <div class="mt-2">
+                        No hay documentos registrados.
+                    </div>
+
+                </div>
+
+
+                <div
+                        th:if="${documents != null and !documents.isEmpty()}"
+                        class="table-responsive">
+
+                    <table class="table document-table align-middle">
+
+                        <thead>
+
+                        <tr>
+
+                            <th>Documento</th>
+                            <th>Tipo</th>
+                            <th>Estado</th>
+                            <th>Fecha</th>
+                            <th class="text-end">Acciones</th>
+
+                        </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                        <tr th:each="document : ${documents}">
+
+                            <td>
+
+                                <div class="d-flex align-items-center gap-3">
+
+                                    <div class="result-document-icon">
+
+                                        <i class="bi bi-file-earmark-text"></i>
+
+                                    </div>
+
+                                    <div>
+
+                                        <div class="field-name"
+                                             th:text="${document.originalFilename}">
+                                            documento.txt
+                                        </div>
+
+                                        <small
+                                                class="text-muted"
+                                                th:text="${document.sizeInBytes + ' bytes'}">
+                                            315 bytes
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                            <td th:text="${document.contentType}">
+                                text/plain
+                            </td>
+
+                            <td>
+
+                                <span class="status-badge status-success"
+                                      th:text="${document.status}">
+                                    PROCESSED
+                                </span>
+
+                            </td>
+
+                            <td
+                                    th:text="${document.createdAt}">
+                                2026-09-15
+                            </td>
+
+                            <td class="text-end">
+
+                                <a
+                                        th:href="@{/documents/{id}(id=${document.id})}"
+                                        class="btn btn-sm btn-outline-primary">
+
+                                    <i class="bi bi-eye me-1"></i>
+
+                                    Ver
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="intellidoc-footer">
+
+    <div class="container text-center">
+
+        IntelliDoc · Procesamiento inteligente de documentos
+
+    </div>
+
+</footer>
+
+</body>
+
+</html>
