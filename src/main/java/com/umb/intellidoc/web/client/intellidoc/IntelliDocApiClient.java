@@ -1,5 +1,7 @@
 package com.umb.intellidoc.web.client.intellidoc;
 
+import com.umb.intellidoc.web.dto.authentication.LoginRequest;
+import com.umb.intellidoc.web.dto.authentication.LoginResponse;
 import com.umb.intellidoc.web.dto.document.DocumentResponse;
 import com.umb.intellidoc.web.dto.document.ProcessDocumentResponse;
 import com.umb.intellidoc.web.dto.document.HistoryEntryResponse;
@@ -168,5 +170,15 @@ public class IntelliDocApiClient {
                 )
                 .retrieve()
                 .body(byte[].class);
+    }
+
+    public LoginResponse login(LoginRequest request) {
+
+        return restClient.post()
+                .uri("/api/v1/auth/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(request)
+                .retrieve()
+                .body(LoginResponse.class);
     }
 }
